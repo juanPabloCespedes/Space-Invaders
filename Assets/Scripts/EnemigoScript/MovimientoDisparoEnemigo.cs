@@ -11,7 +11,7 @@ public class MovimientoDisparoEnemigo : MonoBehaviour
         transform.Translate(Vector2.down * velocidadDisparo * Time.deltaTime);
 
         // Si el disparo sube demasiado y sale de la pantalla, se destruye para no gastar memoria
-        if (transform.position.y > 6f)
+        if (transform.position.y < -6f)
         {
             Destroy(gameObject);
         }

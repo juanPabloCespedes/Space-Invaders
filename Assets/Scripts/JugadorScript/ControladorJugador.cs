@@ -9,7 +9,9 @@ public class ControladorJugador : MonoBehaviour
     // Referencia al objeto del disparo que crearemos después
     public GameObject prefabDisparo; 
     // Punto desde donde sale el disparo (frente de la nave)
-    public Transform puntoDisparo; 
+    public Transform puntoDisparo;
+    public float tiempoCooldown = 1f; // Segundos de espera entre disparo
+    private float siguienteDisparoDisponible = 0f;          // Controla cuándo se podrá volver a atacar
 
     void Update()
     {
@@ -24,7 +26,7 @@ public class ControladorJugador : MonoBehaviour
         transform.position = new Vector3(posicionXLimitada, transform.position.y, transform.position.z);
 
         // 4. Detectar si el jugador presiona la Barra Espaciadora para disparar
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time >= siguienteDisparoDisponible)
         {
             Disparar();
         }
@@ -35,6 +37,7 @@ public class ControladorJugador : MonoBehaviour
         // Crea una copia del disparo en la posición del "puntoDisparo"
         Instantiate(prefabDisparo, puntoDisparo.position, Quaternion.identity);
         AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoJugador); // Sonido de disparo
+        siguienteDisparoDisponible = Time.time + tiempoCooldown;
     }
     
     //Detectar si el disparo enemigo nos golpea

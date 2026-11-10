@@ -5,9 +5,7 @@ public class ControladorEnemigos : MonoBehaviour
     public float velocidad = 3f;
     public float distanciaAlBajar = 0.5f;
     public float limiteLateral = 7f;
-
-    // Dirección actual: 1 significa derecha, -1 significa izquierda
-    private int direccion = 1; 
+    private int direccion = 1;  // Dirección actual: 1 significa derecha, -1 significa izquierda
 
     //Variables para el disparo enemigo
     public GameObject prefabDisparoEnemigo;
@@ -71,7 +69,7 @@ public class ControladorEnemigos : MonoBehaviour
         Instantiate(prefabDisparoEnemigo, enemigoElegido.position, Quaternion.identity);
         
         // Sonido de disparo enemigo
-        AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoEnemigo);
+        AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoEnemigo);    
     }
 }
 

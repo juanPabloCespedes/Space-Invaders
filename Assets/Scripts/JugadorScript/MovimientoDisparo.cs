@@ -23,10 +23,15 @@ public class MovimientoDisparo : MonoBehaviour
         // Si tocamos a un enemigo...
         if (otroObjeto.CompareTag("Enemigo"))
         {
+            Rigidbody2D rb = otroObjeto.gameObject.GetComponent<Rigidbody2D>();
+            BoxCollider2D bc= otroObjeto.gameObject.GetComponent<BoxCollider2D>(); 
             GameManager.Instancia.SumarPuntos(10); //Suma 10 puntos
             AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoExplosion); // Sonido de explosión
-            Destroy(otroObjeto.gameObject); // Destruye al enemigo
-            Destroy(gameObject);            // Destruye el disparo
+            rb.gravityScale=-2f;// cambia la gravedad de la nave  
+            otroObjeto.transform.Rotate(0f, 0f, 350f);//Rota la nave
+            Destroy(gameObject); // Destruye el disparo
+            Destroy(otroObjeto.gameObject,0.8f); // Destruye el disparo
+
         }
     }
 }
