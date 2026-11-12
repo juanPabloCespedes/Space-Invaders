@@ -24,11 +24,13 @@ public class MovimientoDisparo : MonoBehaviour
         if (otroObjeto.CompareTag("Enemigo"))
         {
             Rigidbody2D rb = otroObjeto.gameObject.GetComponent<Rigidbody2D>();
-            BoxCollider2D bc= otroObjeto.gameObject.GetComponent<BoxCollider2D>(); 
-            GameManager.Instancia.SumarPuntos(10); //Suma 10 puntos
+            BoxCollider2D bc= otroObjeto.gameObject.GetComponent<BoxCollider2D>();
+            EnemigoGestor eg = otroObjeto.gameObject.GetComponent<EnemigoGestor>();
+            eg.cambiarEstadoDeVida();
+            GameManager.Instancia.SumarPuntos(eg.getPuntos()); //Suma puntos
             AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoExplosion); // Sonido de explosión
             rb.gravityScale=-2f;// cambia la gravedad de la nave  
-            otroObjeto.transform.Rotate(0f, 0f, 350f);//Rota la nave
+            rb.angularVelocity = Random.Range(-360f, 360f);//Rota la nave 
             Destroy(gameObject); // Destruye el disparo
             Destroy(otroObjeto.gameObject,0.8f); // Destruye el disparo
 

@@ -28,7 +28,7 @@ public class EscudoDestruible : MonoBehaviour
     // También detectamos si los enemigos FÍSICAMENTE pisan el escudo al bajar 
     private void OnTriggerEnter2D(Collider2D otroObjeto) 
     { 
-        if (otroObjeto.CompareTag("DisparoEnemigo")) 
+        if (otroObjeto.CompareTag("DisparoEnemigo")||otroObjeto.CompareTag("Disparo") ) 
         { 
             // Si un marciano dispara a el búnker, lo rompe un poco 
             Destroy(otroObjeto.gameObject); 

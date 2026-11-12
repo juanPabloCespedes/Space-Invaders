@@ -5,7 +5,7 @@ public class ControladorEnemigos : MonoBehaviour
     public float velocidad = 3f;
     public float distanciaAlBajar = 0.5f;
     public float limiteLateral = 7f;
-    private int direccion = 1;  // Dirección actual: 1 significa derecha, -1 significa izquierda
+    public int direccion = 1;  // Dirección actual: 1 significa derecha, -1 significa izquierda
 
     //Variables para el disparo enemigo
     public GameObject prefabDisparoEnemigo;
@@ -29,8 +29,7 @@ public class ControladorEnemigos : MonoBehaviour
         foreach (Transform enemigo in transform)
         {
             // Si algún enemigo toca el límite derecho yendo a la derecha, o el izquierdo yendo a la izquierda
-            if ((direccion == 1 && enemigo.position.x >= limiteLateral) || 
-                (direccion == -1 && enemigo.position.x <= -limiteLateral))
+            if ((direccion == 1 && enemigo.position.x >= limiteLateral) || (direccion == -1 && enemigo.position.x <= -limiteLateral))
             {
                 CambiarDireccionYInvertir();
                 break; // Salimos del bucle para evitar que baje múltiples veces en el mismo frame
@@ -64,12 +63,17 @@ public class ControladorEnemigos : MonoBehaviour
         // Elige un enemigo al azar de los que queden vivos
         int indiceAleatorio = Random.Range(0, transform.childCount);
         Transform enemigoElegido = transform.GetChild(indiceAleatorio);
-
-        // Genera el disparo en la posición de ese enemigo
-        Instantiate(prefabDisparoEnemigo, enemigoElegido.position, Quaternion.identity);
+        EnemigoGestor enemigo = enemigoElegido.gameObject.GetComponent<EnemigoGestor>();
         
-        // Sonido de disparo enemigo
-        AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoEnemigo);    
+        // Genera el disparo en la posición de ese enemigo si es que esta vivo
+        if(enemigo.getEstaVivo())
+        {
+            //Disparo
+            Instantiate(prefabDisparoEnemigo, enemigoElegido.position, Quaternion.identity);
+            // Sonido de disparo enemigo
+            AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoEnemigo);    
+        }
+        
     }
 }
 
