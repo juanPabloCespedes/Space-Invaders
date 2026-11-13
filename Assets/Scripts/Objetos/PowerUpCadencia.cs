@@ -5,7 +5,12 @@ using UnityEngine;
 public class PowerUpCadencia : MonoBehaviour
 {
     private float duracion;
+    private Vector2 posicion; 
 
+    public Vector2 getPosicion()
+    {
+        return posicion;
+    }
     private void OnTriggerEnter2D(Collider2D otroObjeto)
     {
         // Si el jugador colisiona con el power up
