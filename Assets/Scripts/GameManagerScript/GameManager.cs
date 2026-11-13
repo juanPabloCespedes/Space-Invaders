@@ -36,7 +36,9 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        
     }
+
 
     // Función pública para que otros scripts sumen puntos (ej. al destruir un enemigo)
     public void SumarPuntos(int puntosAMentat)

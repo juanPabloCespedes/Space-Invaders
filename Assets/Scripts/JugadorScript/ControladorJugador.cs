@@ -11,8 +11,9 @@ public class ControladorJugador : MonoBehaviour
     // Punto desde donde sale el disparo (frente de la nave)
     public Transform puntoDisparo;
     public float tiempoCooldown = 1f; // Segundos de espera entre disparo
+    public float duracionPowerUp; // Segundos de uso del Power up activo
     private float siguienteDisparoDisponible = 0f;          // Controla cuándo se podrá volver a atacar
-
+    private bool powerUpActivo = false;
     void Update()
     {
         // 1. Obtener la entrada del teclado (Flechas o A/D)
@@ -29,6 +30,11 @@ public class ControladorJugador : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time >= siguienteDisparoDisponible)
         {
             Disparar();
+        }
+        if (powerUpActivo && Time.time >= duracionPowerUp)
+        {
+            cambiarCadencia(1f);
+            powerUpActivo = false;
         }
     }
 
@@ -71,5 +77,19 @@ public class ControladorJugador : MonoBehaviour
                 } 
         } 
         }
+    public void cambiarCadencia(float cadencia)
+    {
+        tiempoCooldown = cadencia;
+    }
+    //activar power ups dependiendo de string y duracion por parametro
+    public void activarPowerUp(string poder,float duracion)
+    {
+        powerUpActivo =true;
+        duracionPowerUp = duracion;
+        if(poder == "cadencia")
+        {
+            cambiarCadencia(0.3f);
+        }
+    }
 
 }

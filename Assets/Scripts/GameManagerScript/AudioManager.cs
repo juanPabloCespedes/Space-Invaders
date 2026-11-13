@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip sonidoDisparoJugador;
     public AudioClip sonidoDisparoEnemigo;
     public AudioClip sonidoExplosion;
+    public AudioClip powerUpcadencia;
 
     void Awake()
     {
