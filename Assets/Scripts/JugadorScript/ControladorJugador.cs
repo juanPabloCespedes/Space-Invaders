@@ -14,6 +14,7 @@ public class ControladorJugador : MonoBehaviour
     public float duracionPowerUp; // Segundos de uso del Power up activo
     private float siguienteDisparoDisponible = 0f;          // Controla cuándo se podrá volver a atacar
     private bool powerUpActivo = false;
+    
     void Update()
     {
         // 1. Obtener la entrada del teclado (Flechas o A/D)
@@ -33,7 +34,7 @@ public class ControladorJugador : MonoBehaviour
         }
         if (powerUpActivo && Time.time >= duracionPowerUp)
         {
-            cambiarCadencia(1f);
+            cambiarCadencia(0.7f);
             powerUpActivo = false;
         }
     }
@@ -56,14 +57,15 @@ public class ControladorJugador : MonoBehaviour
                 if (AudioManager.Instancia != null) 
                 { 
                     
-                AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoExplosion); 
+                AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoHit); 
                 } 
         
                 // 2. Destruir el proyectil que nos golpeó 
                 Destroy(otroObjeto.gameObject);  
-        
+
                 // 3. Avisar al GameManager que nos reste una vida 
                 GameManager.Instancia.RestarVida(); 
+                GameManager.Instancia.restarPuntos(20); 
         
                 // 4. Si el jugador se quedó sin vidas, destruimos la nave física 
                 if (GameManager.Instancia.vidas <= 0) 

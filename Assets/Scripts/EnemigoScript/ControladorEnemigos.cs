@@ -3,18 +3,19 @@ using UnityEngine;
 public class ControladorEnemigos : MonoBehaviour
 {
     public float velocidad = 3f;
+    public float velocidadInicial =3f;
     public float distanciaAlBajar = 0.5f;
     public float limiteLateral = 7f;
     public int direccion = 1;  // Dirección actual: 1 significa derecha, -1 significa izquierda
-
+    
     //Variables para el disparo enemigo
     public GameObject prefabDisparoEnemigo;
     public float tiempoEntreDisparos = 1.5f; 
     private float cronometroDisparo;
-
+    private float duracionPowerUp;
+    private bool powerUpActivo =false;
     //Límite inferior donde si los enemigos llegan, pierdes
     public float limitePerderY = -3f; 
-
     void Start()
     {
         cronometroDisparo = tiempoEntreDisparos;
@@ -47,6 +48,11 @@ public class ControladorEnemigos : MonoBehaviour
         {
             DispararEnemigoAleatorio();
             cronometroDisparo = tiempoEntreDisparos; // Reiniciar cronómetro
+        }
+        if (powerUpActivo && Time.time >= duracionPowerUp)
+        {
+            setVelocidad(velocidadInicial);
+            powerUpActivo = false;
         }         
     }
 
@@ -74,6 +80,16 @@ public class ControladorEnemigos : MonoBehaviour
             AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoEnemigo);    
         }
         
+    }
+    public void activarLentitud(float duracion)
+    {
+        powerUpActivo =true;
+        duracionPowerUp = duracion;
+        velocidad = velocidad / 2;
+    }
+    private void setVelocidad(float valor)
+    {
+        velocidad = valor;
     }
 }
 
