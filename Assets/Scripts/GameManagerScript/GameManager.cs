@@ -11,20 +11,23 @@ public class GameManager : MonoBehaviour
     public TMP_Text textoVidas;  
     public TMP_Text textoPuntuacion;
     public TMP_Text textoGameOver; // Asegúrate de ocultarlo al empezar en Unity
+    public TMP_Text textoGameWin; // Asegúrate de ocultarlo al empezar en Unity
     private bool juegoTerminado = false;
     public GameObject prefabPowerUpCadencia;
-    public GameObject prefabPowerUpLentitud;
-    public int cantidadDePowerUpsActivos = 0; 
-    public int cantidadMaximaDePowerUps = 3; 
-    public int enemigosVivos; 
-    private float duracion = 1f;//duracion de power up 
+    public GameObject prefabPowerUpLentitud; 
+    public int cantidadDePowerUpsActivos = 0; // power ups activos
+    public int cantidadMaximaDePowerUps; // maximo de power ups
+    public int enemigosVivos; // cantidad de enemigos vivos
+    private float duracion = 5f;//duracion de power up 
     List<int> posicionesOcupadas = new List<int>();//lista para manejar spawn de power ups
     List<float> listaDeTiempos = new List<float>();//lista para manejar los tiempos de los power ups
-    int numeroRandom;
-    int posicionRandom;
-    float tiempoActual;
-    int tiempoEntero;
-
+    List<int> ordenDePosicionesOcupadas = new List<int>();//lista para manejar el orden de uso de posiciones
+    int numeroRandom;// numero random para manejar tipos de power up 
+    int posicionRandom;// numero random para manejar diferentes posiciones de power up 
+    float tiempoActual;// tiempo variable de bonificacion de puntos al final del nivel
+    int tiempoEntero; // WiP
+    private int posicionOcupada;
+  
     void Awake()
     {
         // Configura el patrón Singleton para acceso global
@@ -37,13 +40,14 @@ public class GameManager : MonoBehaviour
         // Al empezar, nos aseguramos de que el texto de Game Over esté oculto
          Time.timeScale = 1f; // Nos aseguramos de que el juego no empiece pausado
         if (textoGameOver != null) textoGameOver.gameObject.SetActive(false);
+        if (textoGameWin != null) textoGameWin.gameObject.SetActive(false);
         ActualizarInterfaz();
     }
 
     void Update()
     {
-        // Si perdimos y el jugador presiona R, reiniciamos la partida
         gestionarYGenerarPowerUps();
+        // Si perdimos y el jugador presiona R, reiniciamos la partida
         if (juegoTerminado && Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -55,7 +59,7 @@ public class GameManager : MonoBehaviour
     {
         if(enemigosVivos == 0)
         {
-            ActivarGameOver(); 
+            ActivarGameOver("ganaste"); 
         }
     }
     public void eliminarPowerUpPasadoDeTiempo()
@@ -67,11 +71,13 @@ public class GameManager : MonoBehaviour
     }
     public void eliminarPowerUpActivo()
     {
+        posicionOcupada = ordenDePosicionesOcupadas[0];
         if(Time.time >= listaDeTiempos[0])
         {
             cantidadDePowerUpsActivos--;
             listaDeTiempos.RemoveAt(0);
-            posicionesOcupadas.RemoveAt(0);
+            posicionesOcupadas.Remove(posicionOcupada);
+            ordenDePosicionesOcupadas.RemoveAt(0);
         }
     }
     public void agregarTiempo(float tiempo)
@@ -82,11 +88,7 @@ public class GameManager : MonoBehaviour
     // Función pública para que otros scripts sumen puntos (ej. al destruir un enemigo)
     public void SumarPuntos(int puntosAMentat)
     {
-        if (juegoTerminado)
-        {
-          puntuacion -= (int)(tiempoEntero * 0.5f);
-          return;  
-        } 
+        if (juegoTerminado)return;  
         puntuacion += puntosAMentat;
         ActualizarInterfaz();
     }
@@ -110,7 +112,7 @@ public class GameManager : MonoBehaviour
  
         if (vidas <= 0) 
         { 
-            ActivarGameOver(); 
+            ActivarGameOver("perdiste"); 
         } 
     }
 
@@ -122,17 +124,26 @@ public class GameManager : MonoBehaviour
     }
 
     // Función pública para activar el fin del juego (ej. si la nave muere o los enemigos bajan demasiado)
-    public void ActivarGameOver() 
+    public void ActivarGameOver(string condicion) 
     { 
         juegoTerminado = true; 
-        if (textoGameOver != null) 
+        Time.timeScale = 0f;  //pausar el juego
+        if (condicion == "perdiste") 
         { 
-            textoGameOver.gameObject.SetActive(true); 
-            textoGameOver.text = "¡GAME OVER!\nPresiona 'R' para reiniciar"; 
+            textoGameOver.gameObject.SetActive(true);  
+        }
+        else
+        {
+            textoGameWin.gameObject.SetActive(true);
         } 
-        //pausar el juego
-        Time.timeScale = 0f;  
     } 
+    public void sumarPuntosExtras()
+    {
+        if(juegoTerminado)
+        {
+            puntuacion += 5;
+        }
+    }
     public void generarPowerUp()
     {
         Debug.Log("SPAWN ejecutado en: " + Time.time);
@@ -145,16 +156,16 @@ public class GameManager : MonoBehaviour
             switch (numeroRandom)
             {
                 case 1:
-                    Instantiate(prefabPowerUpCadencia, lc, Quaternion.identity);
-                    setDuracion(10f);
+                    Instantiate(prefabPowerUpCadencia, lc, Quaternion.identity).GetComponent<PowerUpCadencia>().asignarPosicion(posicionRandom);
+                    setDuracion(1f);
                     break;
                 case 2:
-                    Instantiate(prefabPowerUpLentitud, lc, Quaternion.identity);
-                    setDuracion(10f);
+                    Instantiate(prefabPowerUpLentitud, lc, Quaternion.identity).GetComponent<PowerUpLentitud>().asignarPosicion(posicionRandom);
+                    setDuracion(1f);
                     break;
                 default:
-                    Instantiate(prefabPowerUpLentitud, lc, Quaternion.identity);
-                    setDuracion(10f);//10
+                    Instantiate(prefabPowerUpLentitud, lc, Quaternion.identity).GetComponent<PowerUpLentitud>().asignarPosicion(posicionRandom);
+                    setDuracion(1f);//10
                     break;
             }
             agregarPosicion(posicionRandom);
@@ -184,9 +195,9 @@ public class GameManager : MonoBehaviour
     
     public void gestionarYGenerarPowerUps()
     {
-        if(posicionesOcupadas.Count <= 3 && Time.time>= duracion)
+        if(cantidadDePowerUpsActivos <= cantidadMaximaDePowerUps && Time.time>= duracion)
         {
-            setDuracion(25f);//15
+            setDuracion(1f);//15
             generarPowerUp();
         }
     }
@@ -203,5 +214,9 @@ public class GameManager : MonoBehaviour
     public void eliminarEnemigo()
     {
         enemigosVivos --;
+    }
+    public void agregarPosicionOcupada(int posicion)
+    {
+        ordenDePosicionesOcupadas.Add(posicion);
     }
 }

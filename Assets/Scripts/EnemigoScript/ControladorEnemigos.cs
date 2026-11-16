@@ -38,7 +38,7 @@ public class ControladorEnemigos : MonoBehaviour
 
             if (enemigo.position.y <= limitePerderY)
             {
-                GameManager.Instancia.ActivarGameOver();
+                GameManager.Instancia.ActivarGameOver("perdiste");
             }
 
         }
