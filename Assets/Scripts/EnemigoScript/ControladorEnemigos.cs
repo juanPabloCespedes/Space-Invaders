@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class ControladorEnemigos : MonoBehaviour
 {
+    public static ControladorEnemigos Instancia;
     public float velocidad = 3f;
     public float velocidadInicial =3f;
     public float distanciaAlBajar = 0.5f;
     public float limiteLateral = 7f;
     public int direccion = 1;  // Dirección actual: 1 significa derecha, -1 significa izquierda
     
+
+    public int enemigosVivos;//enemigos vivos
     //Variables para el disparo enemigo
     public GameObject prefabDisparoEnemigo;
     public float tiempoEntreDisparos = 1.5f; 
@@ -16,6 +19,12 @@ public class ControladorEnemigos : MonoBehaviour
     private bool powerUpActivo =false;
     //Límite inferior donde si los enemigos llegan, pierdes
     public float limitePerderY = -3f; 
+    void Awake()
+    {
+        // Configura el patrón Singleton para acceso global
+        if (Instancia == null) Instancia = this;
+        else Destroy(gameObject);
+    }
     void Start()
     {
         cronometroDisparo = tiempoEntreDisparos;
@@ -30,7 +39,7 @@ public class ControladorEnemigos : MonoBehaviour
         foreach (Transform enemigo in transform)
         {
             // Si algún enemigo toca el límite derecho yendo a la derecha, o el izquierdo yendo a la izquierda
-            if ((direccion == 1 && enemigo.position.x >= limiteLateral) || (direccion == -1 && enemigo.position.x <= -limiteLateral))
+            if ((direccion == 1 && enemigo.position.x >= limiteLateral) || (direccion == -1 && enemigo.position.x <= -limiteLateral-1))
             {
                 CambiarDireccionYInvertir();
                 break; // Salimos del bucle para evitar que baje múltiples veces en el mismo frame
@@ -53,7 +62,8 @@ public class ControladorEnemigos : MonoBehaviour
         {
             setVelocidad(velocidadInicial);
             powerUpActivo = false;
-        }         
+        }
+        ContarEnemigos();       
     }
 
     void CambiarDireccionYInvertir()
@@ -91,5 +101,23 @@ public class ControladorEnemigos : MonoBehaviour
     {
         velocidad = valor;
     }
+    public int ContarEnemigos()
+    {
+        EnemigoGestor[] enemigos = GetComponentsInChildren<EnemigoGestor>();
+        enemigosVivos = enemigos.Length;
+        return enemigosVivos;
+    }
+    public bool  cantidadDeEnemigos()
+    {
+        EnemigoGestor[] enemigos = GetComponentsInChildren<EnemigoGestor>();
+        enemigosVivos = enemigos.Length;
+        return enemigosVivos <= 0;
+    }
+    public void restarEnemigos()
+    {
+        enemigosVivos = enemigosVivos-1;
+    }
+
+    
 }
 

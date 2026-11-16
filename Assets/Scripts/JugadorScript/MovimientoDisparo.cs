@@ -27,14 +27,13 @@ public class MovimientoDisparo : MonoBehaviour
             BoxCollider2D bc= otroObjeto.gameObject.GetComponent<BoxCollider2D>();
             EnemigoGestor eg = otroObjeto.gameObject.GetComponent<EnemigoGestor>();
             eg.cambiarEstadoDeVida();// usado para gestionar disparos innecesarios
-            GameManager.Instancia.eliminarEnemigo(); //actualiza la variable de enemigos vivos
+            //ControladorEnemigos.Instancia.restarEnemigos(); //actualiza la variable de enemigos vivos
             GameManager.Instancia.SumarPuntos(eg.getPuntos()); //Suma puntos
             AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoExplosion); // Sonido de explosión
             rb.gravityScale=-2f;// cambia la gravedad de la nave  
             rb.angularVelocity = Random.Range(-360f, 360f);//Rota la nave 
             Destroy(gameObject); // Destruye el disparo
-            Destroy(otroObjeto.gameObject,0.8f); // Destruye el disparo
-
+            Destroy(otroObjeto.gameObject,0.8f); // Destruye al enemigo despues de un tiempo
         }
     }
 }

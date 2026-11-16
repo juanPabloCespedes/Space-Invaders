@@ -17,15 +17,12 @@ public class GameManager : MonoBehaviour
     public GameObject prefabPowerUpLentitud; 
     public int cantidadDePowerUpsActivos = 0; // power ups activos
     public int cantidadMaximaDePowerUps; // maximo de power ups
-    public int enemigosVivos; // cantidad de enemigos vivos
     private float duracion = 5f;//duracion de power up 
     List<int> posicionesOcupadas = new List<int>();//lista para manejar spawn de power ups
     List<float> listaDeTiempos = new List<float>();//lista para manejar los tiempos de los power ups
     List<int> ordenDePosicionesOcupadas = new List<int>();//lista para manejar el orden de uso de posiciones
-    int numeroRandom;// numero random para manejar tipos de power up 
-    int posicionRandom;// numero random para manejar diferentes posiciones de power up 
-    float tiempoActual;// tiempo variable de bonificacion de puntos al final del nivel
-    int tiempoEntero; // WiP
+    private int numeroRandom;// numero random para manejar tipos de power up 
+    private int posicionRandom;// numero random para manejar diferentes posiciones de power up 
     private int posicionOcupada;
   
     void Awake()
@@ -42,6 +39,7 @@ public class GameManager : MonoBehaviour
         if (textoGameOver != null) textoGameOver.gameObject.SetActive(false);
         if (textoGameWin != null) textoGameWin.gameObject.SetActive(false);
         ActualizarInterfaz();
+        ControladorEnemigos ce = FindFirstObjectByType<ControladorEnemigos>();
     }
 
     void Update()
@@ -57,8 +55,9 @@ public class GameManager : MonoBehaviour
     }
     public void terminarJuegoSiMurieronLosEnemigos()
     {
-        if(enemigosVivos == 0)
+        if(todosLosEnemigosMuertos())
         {
+            SumarPuntos(bonusPorTiempo());
             ActivarGameOver("ganaste"); 
         }
     }
@@ -118,9 +117,8 @@ public class GameManager : MonoBehaviour
 
     void ActualizarInterfaz()
     {
-         if (textoPuntuacion != null) textoPuntuacion.text = "Puntos: " + puntuacion; 
-        // NUEVO: Actualiza el texto de vidas en la pantalla 
-        if (textoVidas != null) textoVidas.text = "Vidas: " + vidas;
+        textoPuntuacion.text = "" + puntuacion; 
+        textoVidas.text = "" + vidas;
     }
 
     // Función pública para activar el fin del juego (ej. si la nave muere o los enemigos bajan demasiado)
@@ -137,13 +135,7 @@ public class GameManager : MonoBehaviour
             textoGameWin.gameObject.SetActive(true);
         } 
     } 
-    public void sumarPuntosExtras()
-    {
-        if(juegoTerminado)
-        {
-            puntuacion += 5;
-        }
-    }
+
     public void generarPowerUp()
     {
         Debug.Log("SPAWN ejecutado en: " + Time.time);
@@ -195,7 +187,7 @@ public class GameManager : MonoBehaviour
     
     public void gestionarYGenerarPowerUps()
     {
-        if(cantidadDePowerUpsActivos <= cantidadMaximaDePowerUps && Time.time>= duracion)
+        if(cantidadDePowerUpsActivos < cantidadMaximaDePowerUps && Time.time>= duracion)
         {
             setDuracion(1f);//15
             generarPowerUp();
@@ -211,12 +203,32 @@ public class GameManager : MonoBehaviour
         cantidadDePowerUpsActivos++;
         posicionesOcupadas.Add(posicion);
     }
-    public void eliminarEnemigo()
-    {
-        enemigosVivos --;
-    }
+    
     public void agregarPosicionOcupada(int posicion)
     {
         ordenDePosicionesOcupadas.Add(posicion);
+    }
+    public int bonusPorTiempo()
+    {
+        if(Time.time <= 60f)//60
+        {
+            return 500;
+        }
+        else if (Time.time <= 90f )//90
+        {
+            return 250;
+        }
+        else if (Time.time <= 120f)//120
+        {
+            return 125;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    public bool todosLosEnemigosMuertos()
+    {        
+        return ControladorEnemigos.Instancia.cantidadDeEnemigos();
     }
 }

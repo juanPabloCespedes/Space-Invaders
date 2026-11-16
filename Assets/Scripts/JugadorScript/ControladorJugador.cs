@@ -5,7 +5,7 @@ public class ControladorJugador : MonoBehaviour
     // Velocidad de movimiento de la nave
     public float velocidad = 10f; 
     // Límite lateral para que no se salga de la pantalla
-    public float limiteX = 8f; 
+    public float limiteX; 
     // Referencia al objeto del disparo que crearemos después
     public GameObject prefabDisparo; 
     // Punto desde donde sale el disparo (frente de la nave)
@@ -24,7 +24,7 @@ public class ControladorJugador : MonoBehaviour
         transform.Translate(Vector3.right * movimientoHorizontal * velocidad * Time.deltaTime);
 
         // 3. Restringir la posición para que no cruce los límites de la pantalla
-        float posicionXLimitada = Mathf.Clamp(transform.position.x, -limiteX, limiteX);
+        float posicionXLimitada = Mathf.Clamp(transform.position.x, -limiteX-1, limiteX);
         transform.position = new Vector3(posicionXLimitada, transform.position.y, transform.position.z);
 
         // 4. Detectar si el jugador presiona la Barra Espaciadora para disparar
