@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &24633666
 Rigidbody2D:
   serializedVersion: 4
@@ -342,6 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &45650211
 Rigidbody2D:
   serializedVersion: 4
@@ -514,6 +516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &54267657
 Rigidbody2D:
   serializedVersion: 4
@@ -717,6 +720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &103190615
 Rigidbody2D:
   serializedVersion: 4
@@ -889,6 +893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &123633493
 Rigidbody2D:
   serializedVersion: 4
@@ -1061,6 +1066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &123997945
 Rigidbody2D:
   serializedVersion: 4
@@ -1233,6 +1239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &136056493
 Rigidbody2D:
   serializedVersion: 4
@@ -1405,6 +1412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &159207913
 Rigidbody2D:
   serializedVersion: 4
@@ -1577,6 +1585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &159310738
 Rigidbody2D:
   serializedVersion: 4
@@ -1897,6 +1906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &228857291
 Rigidbody2D:
   serializedVersion: 4
@@ -2069,6 +2079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &233822268
 Rigidbody2D:
   serializedVersion: 4
@@ -2241,6 +2252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &268140873
 Rigidbody2D:
   serializedVersion: 4
@@ -2413,6 +2425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &297654869
 Rigidbody2D:
   serializedVersion: 4
@@ -2585,6 +2598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &332595766
 Rigidbody2D:
   serializedVersion: 4
@@ -2891,6 +2905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &355340785
 Rigidbody2D:
   serializedVersion: 4
@@ -3072,7 +3087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 3000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3245,6 +3260,7 @@ RectTransform:
   m_Children:
   - {fileID: 1039894072}
   - {fileID: 401396635}
+  - {fileID: 638167897}
   - {fileID: 664741778}
   - {fileID: 601102132}
   - {fileID: 351116841}
@@ -3305,6 +3321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &486999671
 Rigidbody2D:
   serializedVersion: 4
@@ -3477,6 +3494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &514309269
 Rigidbody2D:
   serializedVersion: 4
@@ -3741,6 +3759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &532293128
 Rigidbody2D:
   serializedVersion: 4
@@ -3913,6 +3932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &552076062
 Rigidbody2D:
   serializedVersion: 4
@@ -4037,6 +4057,143 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &562181429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 562181430}
+  - component: {fileID: 562181432}
+  - component: {fileID: 562181431}
+  m_Layer: 5
+  m_Name: gameWin (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &562181430
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562181429}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1041700696}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.05000019, y: -2.7176}
+  m_SizeDelta: {x: 3.0776, y: 0.7097}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &562181431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562181429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Presiona ENTER para ir al siguiente nivel
+
+    Presiona M para volver
+    al menu'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 0.6
+  m_fontSizeBase: 0.6
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: -8.744753, w: -1.860576}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &562181432
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562181429}
+  m_CullTransparentMesh: 1
 --- !u!1 &601102131
 GameObject:
   m_ObjectHideFlags: 0
@@ -4219,6 +4376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &610103358
 Rigidbody2D:
   serializedVersion: 4
@@ -4391,6 +4549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &612938284
 Rigidbody2D:
   serializedVersion: 4
@@ -4515,6 +4674,140 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &638167896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 638167897}
+  - component: {fileID: 638167899}
+  - component: {fileID: 638167898}
+  m_Layer: 5
+  m_Name: resta
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &638167897
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638167896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 404562810}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -10.154, y: 2.4}
+  m_SizeDelta: {x: 2.2778, y: 0.7097}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &638167898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638167896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: -40
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 841875388
+  m_fontColor: {r: 0.73760456, g: 1, b: 0.1745283, a: 0.19607843}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 0.6
+  m_fontSizeBase: 0.6
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 17
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0.16855526, y: 0, z: -0.61867523, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &638167899
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638167896}
+  m_CullTransparentMesh: 1
 --- !u!1 &651882144
 GameObject:
   m_ObjectHideFlags: 0
@@ -4563,6 +4856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &651882147
 Rigidbody2D:
   serializedVersion: 4
@@ -4735,6 +5029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &656999336
 Rigidbody2D:
   serializedVersion: 4
@@ -5041,6 +5336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &673891591
 Rigidbody2D:
   serializedVersion: 4
@@ -5361,6 +5657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &852941869
 Rigidbody2D:
   serializedVersion: 4
@@ -5519,7 +5816,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.39, y: 1.6676}
+  m_AnchoredPosition: {x: -3.26, y: 1.6676}
   m_SizeDelta: {x: 3.0776, y: 0.7097}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &917363876
@@ -5667,6 +5964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &925679407
 Rigidbody2D:
   serializedVersion: 4
@@ -5839,6 +6137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &940133593
 Rigidbody2D:
   serializedVersion: 4
@@ -6014,9 +6313,10 @@ MonoBehaviour:
   textoGameOver: {fileID: 917363876}
   textoGameWin: {fileID: 1041700697}
   textoTiempo: {fileID: 664741779}
+  textoResta: {fileID: 638167898}
   prefabPowerUpCadencia: {fileID: 2922930398742126687, guid: e4aabcf0a02910244a44778a3ebd7597, type: 3}
   prefabPowerUpLentitud: {fileID: 943617950245142554, guid: bc33689907e093a45b92cfa97e4fd1ba, type: 3}
-  prefabPowerUpInvensible: {fileID: 3458857915370178363, guid: 8579edd49c91ae64098de0a9cf4a7d4f, type: 3}
+  prefabPowerUpRebote: {fileID: 8786590979133147644, guid: 8579edd49c91ae64098de0a9cf4a7d4f, type: 3}
   cantidadDePowerUpsActivos: 0
   cantidadMaximaDePowerUps: 3
 --- !u!1 &1003667008
@@ -6067,6 +6367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &1003667011
 Rigidbody2D:
   serializedVersion: 4
@@ -6373,6 +6674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1040583136
 Rigidbody2D:
   serializedVersion: 4
@@ -6526,12 +6828,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 562181430}
   m_Father: {fileID: 404562810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.39, y: 1.6676}
+  m_AnchoredPosition: {x: -3.14, y: 1.6676}
   m_SizeDelta: {x: 3.0776, y: 0.7097}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1041700697
@@ -6554,12 +6857,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ganaste!!!
-
-    Presiona ENTER para ir al siguiente nivel
-
-    Presiona
-    M para volver al menu'
+  m_text: Ganaste!!!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6592,7 +6890,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -6832,6 +7130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &1222113011
 Rigidbody2D:
   serializedVersion: 4
@@ -7004,6 +7303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &1223237877
 Rigidbody2D:
   serializedVersion: 4
@@ -7324,6 +7624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &1300624856
 Rigidbody2D:
   serializedVersion: 4
@@ -7496,6 +7797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &1324262069
 Rigidbody2D:
   serializedVersion: 4
@@ -7736,6 +8038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &1363516158
 Rigidbody2D:
   serializedVersion: 4
@@ -8094,6 +8397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1426577964
 Rigidbody2D:
   serializedVersion: 4
@@ -8363,7 +8667,10 @@ MonoBehaviour:
   sonidoDisparoEnemigo: {fileID: 8300000, guid: 1b66ecc8a972d1f438bb503e00973f64, type: 3}
   sonidoExplosion: {fileID: 8300000, guid: 5ee138949771f804da65516e7e68614f, type: 3}
   sonidoHit: {fileID: 8300000, guid: b4672451b288f2346b24844992cc9b0e, type: 3}
+  sonidoHitDesviado: {fileID: 8300000, guid: 3efa8296776a99e42bad34563738bb8b, type: 3}
   powerUpcadencia: {fileID: 8300000, guid: a29e27412d678be46b107efb6a0de83b, type: 3}
+  powerUpRebote: {fileID: 8300000, guid: d0e5e945faef5d1458a0ef92631d41ac, type: 3}
+  bunkerRoto: {fileID: 8300000, guid: 6828f13642edb3145afba73d2872a105, type: 3}
 --- !u!1 &1446390037
 GameObject:
   m_ObjectHideFlags: 0
@@ -8412,6 +8719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &1446390040
 Rigidbody2D:
   serializedVersion: 4
@@ -8584,6 +8892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &1501833396
 Rigidbody2D:
   serializedVersion: 4
@@ -8756,6 +9065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &1652495884
 Rigidbody2D:
   serializedVersion: 4
@@ -8928,6 +9238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1705934830
 Rigidbody2D:
   serializedVersion: 4
@@ -9100,6 +9411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &1729188530
 Rigidbody2D:
   serializedVersion: 4
@@ -9420,6 +9732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1767368380
 Rigidbody2D:
   serializedVersion: 4
@@ -9592,6 +9905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &1798800427
 Rigidbody2D:
   serializedVersion: 4
@@ -9764,6 +10078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &1802141266
 Rigidbody2D:
   serializedVersion: 4
@@ -9936,6 +10251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1854107464
 Rigidbody2D:
   serializedVersion: 4
@@ -10108,6 +10424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &1862656064
 Rigidbody2D:
   serializedVersion: 4
@@ -10280,6 +10597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1877967288
 Rigidbody2D:
   serializedVersion: 4
@@ -10452,6 +10770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1891760246
 Rigidbody2D:
   serializedVersion: 4
@@ -10624,6 +10943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1891795921
 Rigidbody2D:
   serializedVersion: 4
@@ -10796,6 +11116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1894692591
 Rigidbody2D:
   serializedVersion: 4
@@ -10968,6 +11289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1903442879
 Rigidbody2D:
   serializedVersion: 4
@@ -11248,6 +11570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &1991922034
 Rigidbody2D:
   serializedVersion: 4
@@ -11420,6 +11743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 20
+  pitchSonido: 1.1
 --- !u!50 &1994450842
 Rigidbody2D:
   serializedVersion: 4
@@ -11592,6 +11916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &2025002921
 Rigidbody2D:
   serializedVersion: 4
@@ -11764,6 +12089,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 10
+  pitchSonido: 1
 --- !u!50 &2028144090
 Rigidbody2D:
   serializedVersion: 4
@@ -11936,6 +12262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puntos: 40
+  pitchSonido: 1.2
 --- !u!50 &2070114252
 Rigidbody2D:
   serializedVersion: 4

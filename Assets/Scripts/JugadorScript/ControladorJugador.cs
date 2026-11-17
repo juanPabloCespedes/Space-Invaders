@@ -9,9 +9,8 @@ public class ControladorJugador : MonoBehaviour
     public float tiempoCooldown = 1f; // Segundos de espera entre disparo
     public float duracionPowerUp; // Segundos de uso del Power up activo
     private float siguienteDisparoDisponible = 0f;// Controla cuándo se podrá volver a atacar
-    private bool powerUpActivo = false;
-    private SpriteRenderer renderizadorSprite; 
-    private bool invensible = false;
+    private bool powerUpActivo = false;//gestionar el power up activo
+    private bool invensible = false;// gestionar el power up de rebote
     void Update()
     {
         // 1. Obtener la entrada del teclado (Flechas o A/D)
@@ -29,9 +28,14 @@ public class ControladorJugador : MonoBehaviour
         {
             Disparar();
         }
+        //bloque de codigo util para desactivar los efectos de los powerUps
         if (powerUpActivo && Time.time >= duracionPowerUp)
         {
-            cambiarCadencia(0.7f);
+            SpriteRenderer miSprite = GetComponent<SpriteRenderer>();
+            Color colorActual = miSprite.color;
+            colorActual.a = 1f;// vuelve su opacidad normal
+            miSprite.color = colorActual;
+            cambiarCadencia(0.7f);//vuelve su cadencia default
             powerUpActivo = false;
             invensible = false;
         }
@@ -41,7 +45,7 @@ public class ControladorJugador : MonoBehaviour
     {
         // Crea una copia del disparo en la posición del "puntoDisparo"
         Instantiate(prefabDisparo, puntoDisparo.position, Quaternion.identity);
-        AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoJugador); // Sonido de disparo
+        AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoJugador,1f,1f); // Sonido de disparo
         siguienteDisparoDisponible = Time.time + tiempoCooldown;
     }
     
@@ -55,7 +59,7 @@ public class ControladorJugador : MonoBehaviour
                 if (AudioManager.Instancia != null) 
                 { 
                     
-                AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoHit); 
+                AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoHit,1f,1f); 
                 } 
         
                 // 2. Destruir el proyectil que nos golpeó 
@@ -76,12 +80,15 @@ public class ControladorJugador : MonoBehaviour
                 transform.position = new Vector3(0f, transform.position.y, transform.position.z); 
                 } 
             }
+            //bloque para gestionar cuando tenemos nuestro power up de rebote activo
             if(otroObjeto.CompareTag("DisparoEnemigo")&& invensible)
             {
-                AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoHit);
+                Disparar();
+                AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoHitDesviado,1f,1f);
                 Destroy(otroObjeto.gameObject);   
             }
         }
+    // funcion para cambiar la cadencia
     public void cambiarCadencia(float cadencia)
     {
         tiempoCooldown = cadencia;
@@ -91,12 +98,16 @@ public class ControladorJugador : MonoBehaviour
     {
         powerUpActivo =true;
         duracionPowerUp = duracion;
+        SpriteRenderer miSprite = GetComponent<SpriteRenderer>();
         if(poder == "cadencia")
         {
             cambiarCadencia(0.3f);
         }
-        if(poder == "invensible")
+        if(poder == "rebote")
         {
+            Color colorActual = miSprite.color;
+            colorActual.a = 0.25f;
+            miSprite.color = colorActual;
             invensible = true;
         }
     }

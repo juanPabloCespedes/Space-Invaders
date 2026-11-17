@@ -11,7 +11,10 @@ public class AudioManager : MonoBehaviour
     public AudioClip sonidoDisparoEnemigo;
     public AudioClip sonidoExplosion;
     public AudioClip sonidoHit;
+    public AudioClip sonidoHitDesviado;
     public AudioClip powerUpcadencia;
+    public AudioClip powerUpRebote;
+    public AudioClip bunkerRoto;
 
     void Awake()
     {
@@ -20,11 +23,12 @@ public class AudioManager : MonoBehaviour
     }
 
     // Función para reproducir cualquier sonido una sola vez
-    public void ReproducirSonido(AudioClip clip)
+    public void ReproducirSonido(AudioClip clip,float volumen,float pitch)
     {
         if (clip != null)
         {
-            fuenteAudio.PlayOneShot(clip);
+            fuenteAudio.pitch = pitch;
+            fuenteAudio.PlayOneShot(clip,volumen);
         }
     }
 }

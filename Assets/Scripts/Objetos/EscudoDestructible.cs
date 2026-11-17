@@ -5,15 +5,15 @@ public class EscudoDestruible : MonoBehaviour
     public int saludMaxima = 4; 
     private int saludActual; 
     // Referencia al componente SpriteRenderer para cambiar el color del escudo según su daño 
-    [SerializeField] private Sprite[] spritesDanio;
-    private SpriteRenderer renderizadorSprite; 
+    [SerializeField] private Sprite[] spritesDanio;// manejo de lista de sprites donde se cargan del sprite mas nuevo al mas roto
+    private SpriteRenderer renderizadorSprite; //manejar el sprite
  
     void Start() 
     { 
         saludActual = saludMaxima;
         renderizadorSprite = GetComponent<SpriteRenderer>(); 
     } 
-    
+    // WIP
      private void OnCollisionEnter2D(Collision2D colision) 
     { 
         // Comprobamos si lo que chocó contra el escudo fue un disparo del jugador o del enemigo 
@@ -46,7 +46,7 @@ public class EscudoDestruible : MonoBehaviour
         { 
             if (AudioManager.Instancia != null) 
             { 
-                AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoExplosion); 
+                AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.bunkerRoto,0.5f,1f); 
             } 
             Destroy(gameObject);
             return; 

@@ -13,10 +13,11 @@ public class GameManager : MonoBehaviour
     public TMP_Text textoGameOver; // Asegúrate de ocultarlo al empezar en Unity
     public TMP_Text textoGameWin; // Asegúrate de ocultarlo al empezar en Unity
     public TMP_Text textoTiempo; 
+    public TMP_Text textoResta; 
     private bool juegoTerminado = false;
     public GameObject prefabPowerUpCadencia;
     public GameObject prefabPowerUpLentitud; 
-    public GameObject prefabPowerUpInvensible; 
+    public GameObject prefabPowerUpRebote; 
     public int cantidadDePowerUpsActivos = 0; // power ups activos
     public int cantidadMaximaDePowerUps; // maximo de power ups
     private float duracion = 5f;//cooldwon de powerup
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     private int posicionOcupada;//numero para obtener la posicion ocupada
     private float tiempoInicio;//manejo de reloj 
     private int ultimoSegundo = -1;
+    private float advertenciaDeResta;//advertencia de resta de puntos
 
     void Awake()
     {
@@ -40,25 +42,36 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Al empezar, nos aseguramos de que el texto de Game Over esté oculto
+        // Al empezar, nos aseguramos de que el texto de Game Over esté oculto y los demas tambien
          Time.timeScale = 1f; // Nos aseguramos de que el juego no empiece pausado
         if (textoGameOver != null) textoGameOver.gameObject.SetActive(false);
         if (textoGameWin != null) textoGameWin.gameObject.SetActive(false);
+        if (textoResta != null) textoResta.gameObject.SetActive(false);
         ActualizarInterfaz();
     }
 
     void Update()
     {
-        gestionarYGenerarPowerUps();
+        gestionarYGenerarPowerUps();//funcion corazon que maneja los spawns de los powerUps
         // Si perdimos y el jugador presiona R, reiniciamos la partida
         if (juegoTerminado && Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        eliminarPowerUpPasadoDeTiempo();
+        eliminarPowerUpPasadoDeTiempo();//gestiona los power ups que pasaron de tiempo
         terminarJuegoSiMurieronLosEnemigos();
         ActualizarTiempo();
+        eliminarAdvertencia();
     }
+    //funcion que oculta la advertencia de resta de puntos
+    private void eliminarAdvertencia()
+    {
+        if(Time.time >= advertenciaDeResta )
+        {
+            textoResta.gameObject.SetActive(false);
+        }
+    }
+    //funcion para manejar el relog
      private void ActualizarTiempo()
         {
             int tiempoTotal = Mathf.FloorToInt(Time.time - tiempoInicio);
@@ -68,6 +81,7 @@ public class GameManager : MonoBehaviour
             int segundos = tiempoTotal % 60;
             textoTiempo.text = $"{minutos:00}:{segundos:00}";
         }
+    //funcion para gestionar el endgame
     public void terminarJuegoSiMurieronLosEnemigos()
     {
         if(todosLosEnemigosMuertos())
@@ -76,6 +90,7 @@ public class GameManager : MonoBehaviour
             ActivarGameOver("ganaste"); 
         }
     }
+    //funcion que accede a la lista y elimina el powerUp activo
     public void eliminarPowerUpPasadoDeTiempo()
     {
         if(listaDeTiempos.Count>0)
@@ -83,21 +98,24 @@ public class GameManager : MonoBehaviour
             eliminarPowerUpActivo();
         }
     }
+    //funcion que se encarga de Eliminar el powerup activo  
     public void eliminarPowerUpActivo()
     {
-        posicionOcupada = ordenDePosicionesOcupadas[0];
+        posicionOcupada = ordenDePosicionesOcupadas[0];//esta lista maneja los power ups que usa el jugador y de esta forma se ordenan cual agarro primero y cual ultimo
         if(Time.time >= listaDeTiempos[0])
         {
             cantidadDePowerUpsActivos--;
-            listaDeTiempos.RemoveAt(0);
-            posicionesOcupadas.Remove(posicionOcupada);
-            ordenDePosicionesOcupadas.RemoveAt(0);
+            listaDeTiempos.RemoveAt(0);// eliminamos de la lista de tiempos el tiempo indice 0, ya que seria el primero que agarro el jugador 
+            posicionesOcupadas.Remove(posicionOcupada);// eliminamos la posicion ocupada que obtuvimos gracias a la posicion de spawn del power up
+            ordenDePosicionesOcupadas.RemoveAt(0);// eliminamos del orden de los cuales agarro el jugador, el del indice 0 tambien
         }
     }
+    //funcion para agregar tiempo
     public void agregarTiempo(float tiempo)
     {
         listaDeTiempos.Add(tiempo);
     }
+    //funcion para sacar posicion ocupada 
     public void desocuparPosicion(int posicion)
     {
         cantidadDePowerUpsActivos--;
@@ -110,6 +128,7 @@ public class GameManager : MonoBehaviour
         puntuacion += puntosAMentat;
         ActualizarInterfaz();
     }
+    //funcion que sirve para restar puntos y mostrar la advertencia  
     public void restarPuntos(int puntosAMentat)
     {
         if (juegoTerminado) return;
@@ -118,6 +137,8 @@ public class GameManager : MonoBehaviour
         {
             puntuacion = 0;
         }
+        advertenciaDeResta = Time.time + 2f;
+        textoResta.gameObject.SetActive(true);
         ActualizarInterfaz();
     }
      // Función para restar vidas cuando el jugador es golpeado 
@@ -140,7 +161,7 @@ public class GameManager : MonoBehaviour
         textoVidas.text = "" + vidas;
     }
 
-    // Función pública para activar el fin del juego (ej. si la nave muere o los enemigos bajan demasiado)
+    // Función pública para activar el fin del juego (ej. si la nave muere o los enemigos bajan demasiado o el jugador gano eliminando a todos)
     public void ActivarGameOver(string condicion) 
     { 
         juegoTerminado = true; 
@@ -154,32 +175,30 @@ public class GameManager : MonoBehaviour
             textoGameWin.gameObject.SetActive(true);
         } 
     } 
-
+    //funcion que elige de manera aleatoria, el power up y el lugar 
     public void generarPowerUp()
     {
-        Debug.Log("SPAWN ejecutado en: " + Time.time);
         numeroRandom = Random.Range(1,4);
         posicionRandom = Random.Range(1,4);
-        Debug.Log("el numero que salio fue "+ numeroRandom+ " en la posicion " + posicionRandom);
-        Vector2 lc=  localizacionRandom(posicionRandom);
-        if(validarPosicion(posicionRandom))
+        Vector2 lc=  localizacionRandom(posicionRandom);//funcion que retorna un vector para instanciarlo en el prefab
+        if(validarPosicion(posicionRandom))//funcion de validacion si no esta ocupada la posicion 
         {
             switch (numeroRandom)
             {
                 case 1:
-                    Instantiate(prefabPowerUpInvensible, lc, Quaternion.identity).GetComponent<PowerUpInvensible>().asignarPosicion(posicionRandom);
-                    setDuracion(1f);
+                    Instantiate(prefabPowerUpCadencia, lc, Quaternion.identity).GetComponent<PowerUpCadencia>().asignarPosicion(posicionRandom);
+                    setDuracion(1f);// cooldown de power ups en general
                     break;
                 case 2:
-                    Instantiate(prefabPowerUpInvensible, lc, Quaternion.identity).GetComponent<PowerUpInvensible>().asignarPosicion(posicionRandom);
+                    Instantiate(prefabPowerUpLentitud, lc, Quaternion.identity).GetComponent<PowerUpLentitud>().asignarPosicion(posicionRandom);
                     setDuracion(1f);
                     break;
                 default:
-                    Instantiate(prefabPowerUpInvensible, lc, Quaternion.identity).GetComponent<PowerUpInvensible>().asignarPosicion(posicionRandom);
+                    Instantiate(prefabPowerUpRebote, lc, Quaternion.identity).GetComponent<PowerUpRebote>().asignarPosicion(posicionRandom);
                     setDuracion(1f);//10
                     break;
             }
-            agregarPosicion(posicionRandom);
+            agregarPosicion(posicionRandom);//se agrega la posicion en la que se tomo este power up 
         }
         else
         {
@@ -187,6 +206,7 @@ public class GameManager : MonoBehaviour
             setDuracion(2f);//8
         }
     }
+    //funcion que mediante un numero entero obtenemos un vector con coordenadas
     public Vector2 localizacionRandom(int numero)
     {
         switch (numero)
@@ -199,34 +219,38 @@ public class GameManager : MonoBehaviour
                 return new Vector2(0f, -4.438f); 
         }
     }
+    //void para setear duracion 
     public void setDuracion(float tiempo)
     {
         duracion = Time.time + tiempo;
     }
-    
+    // funcion que administra los power ups, si la cantidad de power ups activos es menor que la maxima y el tiempo de cooldown paso, se genera un nuevo power up 
     public void gestionarYGenerarPowerUps()
     {
         if(cantidadDePowerUpsActivos < cantidadMaximaDePowerUps && Time.time>= duracion)
         {
             setDuracion(1f);//15
-            generarPowerUp();
+            generarPowerUp();//genera el power up 
         }
     }
+    //funcion que valida la posicion por parametro
     public bool validarPosicion(int posicion)
     {
-        return !posicionesOcupadas.Contains(posicion);
+        return !posicionesOcupadas.Contains(posicion);// consultamos si contiene dicha posicion
         
     }
+    //agrega la posicion
     public void agregarPosicion(int posicion)
     {
         cantidadDePowerUpsActivos++;
         posicionesOcupadas.Add(posicion);
     }
-    
+    //agrega la posicion en lista ocupada
     public void agregarPosicionOcupada(int posicion)
     {
         ordenDePosicionesOcupadas.Add(posicion);
     }
+    //funcion que recompensa al jugador si termino el nivel en x tiempo recibe x cantidad extra de puntos 
     public int bonusPorTiempo()
     {
         if(Time.time <= 60f)//60
@@ -246,8 +270,9 @@ public class GameManager : MonoBehaviour
             return 0;
         }
     }
+    //funcion util para activar el gameOver "ganaste"
     public bool todosLosEnemigosMuertos()
     {        
-        return ControladorEnemigos.Instancia.cantidadDeEnemigos();
+        return ControladorEnemigos.Instancia.cantidadDeEnemigos();// instanciamos el controaldor de enemigos y le consultamos si esa funcion booleana es verdadera
     }
 }
