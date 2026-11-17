@@ -8,8 +8,6 @@ public class ControladorEnemigos : MonoBehaviour
     public float distanciaAlBajar = 0.5f;
     public float limiteLateral = 7f;
     public int direccion = 1;  // Dirección actual: 1 significa derecha, -1 significa izquierda
-    
-
     public int enemigosVivos;//enemigos vivos
     //Variables para el disparo enemigo
     public GameObject prefabDisparoEnemigo;
@@ -88,8 +86,7 @@ public class ControladorEnemigos : MonoBehaviour
             Instantiate(prefabDisparoEnemigo, enemigoElegido.position, Quaternion.identity);
             // Sonido de disparo enemigo
             AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoEnemigo);    
-        }
-        
+        }   
     }
     public void activarLentitud(float duracion)
     {
@@ -112,12 +109,6 @@ public class ControladorEnemigos : MonoBehaviour
         EnemigoGestor[] enemigos = GetComponentsInChildren<EnemigoGestor>();
         enemigosVivos = enemigos.Length;
         return enemigosVivos <= 0;
-    }
-    public void restarEnemigos()
-    {
-        enemigosVivos = enemigosVivos-1;
-    }
-
-    
+    } 
 }
 

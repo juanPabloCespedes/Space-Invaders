@@ -3,6 +3,9 @@ public abstract class PowerUpBase : MonoBehaviour
 {
     protected float duracion;
     protected int posicion;
+    protected float despawn;
+    protected bool activo = false;
+
     protected virtual void reproducirAudio()
     {
         AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.powerUpcadencia);
@@ -22,11 +25,25 @@ public abstract class PowerUpBase : MonoBehaviour
     }
     public virtual void asignarPosicion(int lugar)
     {
+        activo = true;
         posicion = lugar;
-    } 
+        despawn = Time.time + 8f;
+    }
+
     protected virtual void activarPowerUp(ControladorJugador jg)
     {
         duracion = Time.time + 4f;
         jg.activarPowerUp("cadencia",duracion);
     }
+    
+    void Update()
+    {
+        if(Time.time >= despawn && activo)
+        {
+            Destroy(gameObject);
+            GameManager.Instancia.desocuparPosicion(posicion);
+            activo = false;
+        }
+    }
+
 } 

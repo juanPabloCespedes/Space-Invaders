@@ -27,7 +27,6 @@ public class MovimientoDisparo : MonoBehaviour
             BoxCollider2D bc= otroObjeto.gameObject.GetComponent<BoxCollider2D>();
             EnemigoGestor eg = otroObjeto.gameObject.GetComponent<EnemigoGestor>();
             eg.cambiarEstadoDeVida();// usado para gestionar disparos innecesarios
-            //ControladorEnemigos.Instancia.restarEnemigos(); //actualiza la variable de enemigos vivos
             GameManager.Instancia.SumarPuntos(eg.getPuntos()); //Suma puntos
             AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoExplosion); // Sonido de explosión
             rb.gravityScale=-2f;// cambia la gravedad de la nave  

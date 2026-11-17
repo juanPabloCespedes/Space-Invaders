@@ -5,11 +5,12 @@ public class EscudoDestruible : MonoBehaviour
     public int saludMaxima = 4; 
     private int saludActual; 
     // Referencia al componente SpriteRenderer para cambiar el color del escudo según su daño 
+    [SerializeField] private Sprite[] spritesDanio;
     private SpriteRenderer renderizadorSprite; 
  
     void Start() 
     { 
-        saludActual = saludMaxima; 
+        saludActual = saludMaxima;
         renderizadorSprite = GetComponent<SpriteRenderer>(); 
     } 
     
@@ -22,7 +23,7 @@ public class EscudoDestruible : MonoBehaviour
             Destroy(colision.gameObject); 
  
             // 2. Restamos salud al escudo 
-            RecibirDanio(4); 
+            RecibirDanio(1); 
         } 
     }
     // También detectamos si los enemigos FÍSICAMENTE pisan el escudo al bajar 
@@ -40,16 +41,6 @@ public class EscudoDestruible : MonoBehaviour
     { 
         saludActual -= cantidad; 
  
-        // Efecto visual básico: El escudo se vuelve más transparente o cambia de color a medida que se rompe 
-        if (renderizadorSprite != null) 
-        { 
-            // Calculamos un porcentaje de la vida restante 
-            float porcentajeSalud = (float)saludActual / saludMaxima; 
-              
-            // Cambiamos el color hacia tonos más rojos/oscuros o reducimos la opacidad (Alpha) 
-            renderizadorSprite.color = new Color(1f, porcentajeSalud, porcentajeSalud, 1f); 
-        } 
- 
         // Si la salud llega a cero, el búnker se destruye por completo 
         if (saludActual <= 0) 
         { 
@@ -57,7 +48,11 @@ public class EscudoDestruible : MonoBehaviour
             { 
                 AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoExplosion); 
             } 
-            Destroy(gameObject); 
-        } 
+            Destroy(gameObject);
+            return; 
+        }
+        int indiceSprite = saludMaxima - saludActual-1;
+        indiceSprite = Mathf.Clamp(indiceSprite, 0, spritesDanio.Length - 1);
+        renderizadorSprite.sprite = spritesDanio[indiceSprite]; 
     } 
 }

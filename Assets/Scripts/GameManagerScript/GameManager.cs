@@ -12,24 +12,30 @@ public class GameManager : MonoBehaviour
     public TMP_Text textoPuntuacion;
     public TMP_Text textoGameOver; // Asegúrate de ocultarlo al empezar en Unity
     public TMP_Text textoGameWin; // Asegúrate de ocultarlo al empezar en Unity
+    public TMP_Text textoTiempo; 
     private bool juegoTerminado = false;
     public GameObject prefabPowerUpCadencia;
     public GameObject prefabPowerUpLentitud; 
+    public GameObject prefabPowerUpInvensible; 
     public int cantidadDePowerUpsActivos = 0; // power ups activos
     public int cantidadMaximaDePowerUps; // maximo de power ups
-    private float duracion = 5f;//duracion de power up 
+    private float duracion = 5f;//cooldwon de powerup
     List<int> posicionesOcupadas = new List<int>();//lista para manejar spawn de power ups
     List<float> listaDeTiempos = new List<float>();//lista para manejar los tiempos de los power ups
     List<int> ordenDePosicionesOcupadas = new List<int>();//lista para manejar el orden de uso de posiciones
     private int numeroRandom;// numero random para manejar tipos de power up 
     private int posicionRandom;// numero random para manejar diferentes posiciones de power up 
-    private int posicionOcupada;
-  
+    private int posicionOcupada;//numero para obtener la posicion ocupada
+    private float tiempoInicio;//manejo de reloj 
+    private int ultimoSegundo = -1;
+
     void Awake()
     {
         // Configura el patrón Singleton para acceso global
         if (Instancia == null) Instancia = this;
         else Destroy(gameObject);
+        tiempoInicio = Time.time;
+        ActualizarTiempo();
     }
 
     void Start()
@@ -39,7 +45,6 @@ public class GameManager : MonoBehaviour
         if (textoGameOver != null) textoGameOver.gameObject.SetActive(false);
         if (textoGameWin != null) textoGameWin.gameObject.SetActive(false);
         ActualizarInterfaz();
-        ControladorEnemigos ce = FindFirstObjectByType<ControladorEnemigos>();
     }
 
     void Update()
@@ -52,7 +57,17 @@ public class GameManager : MonoBehaviour
         }
         eliminarPowerUpPasadoDeTiempo();
         terminarJuegoSiMurieronLosEnemigos();
+        ActualizarTiempo();
     }
+     private void ActualizarTiempo()
+        {
+            int tiempoTotal = Mathf.FloorToInt(Time.time - tiempoInicio);
+            if (tiempoTotal == ultimoSegundo) return;
+            ultimoSegundo = tiempoTotal;
+            int minutos = tiempoTotal / 60;
+            int segundos = tiempoTotal % 60;
+            textoTiempo.text = $"{minutos:00}:{segundos:00}";
+        }
     public void terminarJuegoSiMurieronLosEnemigos()
     {
         if(todosLosEnemigosMuertos())
@@ -83,7 +98,11 @@ public class GameManager : MonoBehaviour
     {
         listaDeTiempos.Add(tiempo);
     }
-
+    public void desocuparPosicion(int posicion)
+    {
+        cantidadDePowerUpsActivos--;
+        posicionesOcupadas.Remove(posicion);
+    }
     // Función pública para que otros scripts sumen puntos (ej. al destruir un enemigo)
     public void SumarPuntos(int puntosAMentat)
     {
@@ -148,15 +167,15 @@ public class GameManager : MonoBehaviour
             switch (numeroRandom)
             {
                 case 1:
-                    Instantiate(prefabPowerUpCadencia, lc, Quaternion.identity).GetComponent<PowerUpCadencia>().asignarPosicion(posicionRandom);
+                    Instantiate(prefabPowerUpInvensible, lc, Quaternion.identity).GetComponent<PowerUpInvensible>().asignarPosicion(posicionRandom);
                     setDuracion(1f);
                     break;
                 case 2:
-                    Instantiate(prefabPowerUpLentitud, lc, Quaternion.identity).GetComponent<PowerUpLentitud>().asignarPosicion(posicionRandom);
+                    Instantiate(prefabPowerUpInvensible, lc, Quaternion.identity).GetComponent<PowerUpInvensible>().asignarPosicion(posicionRandom);
                     setDuracion(1f);
                     break;
                 default:
-                    Instantiate(prefabPowerUpLentitud, lc, Quaternion.identity).GetComponent<PowerUpLentitud>().asignarPosicion(posicionRandom);
+                    Instantiate(prefabPowerUpInvensible, lc, Quaternion.identity).GetComponent<PowerUpInvensible>().asignarPosicion(posicionRandom);
                     setDuracion(1f);//10
                     break;
             }
@@ -173,11 +192,11 @@ public class GameManager : MonoBehaviour
         switch (numero)
         {
             case 1:
-                return new Vector2(-8.07f, -4.438f);         
+                return new Vector2(-8.998f, -4.438f);         
             case 2:
-                return new Vector2(8.48f, -4.438f); 
+                return new Vector2(9.005f, -4.438f); 
             default:
-                return new Vector2(-1f, -4.438f); 
+                return new Vector2(0f, -4.438f); 
         }
     }
     public void setDuracion(float tiempo)

@@ -2,19 +2,16 @@ using UnityEngine;
 
 public class ControladorJugador : MonoBehaviour
 {
-    // Velocidad de movimiento de la nave
-    public float velocidad = 10f; 
-    // Límite lateral para que no se salga de la pantalla
-    public float limiteX; 
-    // Referencia al objeto del disparo que crearemos después
-    public GameObject prefabDisparo; 
-    // Punto desde donde sale el disparo (frente de la nave)
-    public Transform puntoDisparo;
+    public float velocidad = 10f; // Velocidad de movimiento de la nave
+    public float limiteX; // Límite lateral para que no se salga de la pantalla
+    public GameObject prefabDisparo; // Referencia al objeto del disparo que crearemos después
+    public Transform puntoDisparo;// Punto desde donde sale el disparo (frente de la nave)
     public float tiempoCooldown = 1f; // Segundos de espera entre disparo
     public float duracionPowerUp; // Segundos de uso del Power up activo
-    private float siguienteDisparoDisponible = 0f;          // Controla cuándo se podrá volver a atacar
+    private float siguienteDisparoDisponible = 0f;// Controla cuándo se podrá volver a atacar
     private bool powerUpActivo = false;
-    
+    private SpriteRenderer renderizadorSprite; 
+    private bool invensible = false;
     void Update()
     {
         // 1. Obtener la entrada del teclado (Flechas o A/D)
@@ -36,6 +33,7 @@ public class ControladorJugador : MonoBehaviour
         {
             cambiarCadencia(0.7f);
             powerUpActivo = false;
+            invensible = false;
         }
     }
 
@@ -51,7 +49,7 @@ public class ControladorJugador : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D otroObjeto) 
         { 
             // Detectamos si nos golpea un disparo enemigo 
-            if (otroObjeto.CompareTag("DisparoEnemigo")) 
+            if (otroObjeto.CompareTag("DisparoEnemigo")&& !invensible) 
             { 
                 // 1. Reproducir sonido de explosión 
                 if (AudioManager.Instancia != null) 
@@ -65,7 +63,7 @@ public class ControladorJugador : MonoBehaviour
 
                 // 3. Avisar al GameManager que nos reste una vida 
                 GameManager.Instancia.RestarVida(); 
-                GameManager.Instancia.restarPuntos(20); 
+                GameManager.Instancia.restarPuntos(40); 
         
                 // 4. Si el jugador se quedó sin vidas, destruimos la nave física 
                 if (GameManager.Instancia.vidas <= 0) 
@@ -77,7 +75,12 @@ public class ControladorJugador : MonoBehaviour
                 // Opcional: Centrar la nave de nuevo al recibir daño como penalización/reaparición 
                 transform.position = new Vector3(0f, transform.position.y, transform.position.z); 
                 } 
-        } 
+            }
+            if(otroObjeto.CompareTag("DisparoEnemigo")&& invensible)
+            {
+                AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoHit);
+                Destroy(otroObjeto.gameObject);   
+            }
         }
     public void cambiarCadencia(float cadencia)
     {
@@ -92,6 +95,11 @@ public class ControladorJugador : MonoBehaviour
         {
             cambiarCadencia(0.3f);
         }
+        if(poder == "invensible")
+        {
+            invensible = true;
+        }
     }
+    
 
 }
