@@ -10,11 +10,23 @@ public class ControladorMenu : MonoBehaviour
     
         void Update() 
         { 
-            // Detecta si el jugador presiona la tecla Enter (Return) o el Enter del teclado numérico 
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) 
-            { 
-                // Carga la escena del juego. Reemplaza "EscenaJuego" por el nombre exacto de tu escena principal. 
-                SceneManager.LoadScene("Juego");  
-            } 
         } 
+        // Creamos esta función pública para que el Botón del mouse pueda llamarla
+        public void CargarEscenaJuego(string escena)
+        {
+            SceneManager.LoadScene(escena); 
+        }
+        public void salirDelJuego()
+        {
+            Debug.Log("Saliendo del juego...");
+            // Cierra la aplicación (Funciona en el juego exportado para PC/Android/etc.)
+            Application.Quit();
+
+            // CONDICIÓN ESPECIAL PARA EL EDITOR DE UNITY:
+            // Como Application.Quit() no cierra el editor mientras estás probando, 
+            // le decimos a Unity que detenga el modo Play para que notes que funciona.
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+        }
     }
