@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     private float tiempoInicio;//manejo de reloj 
     private int ultimoSegundo = -1;
     private float advertenciaDeResta;//advertencia de resta de puntos
-
     void Awake()
     {
         // Configura el patrón Singleton para acceso global
@@ -274,5 +273,9 @@ public class GameManager : MonoBehaviour
     public bool todosLosEnemigosMuertos()
     {        
         return ControladorEnemigos.Instancia.cantidadDeEnemigos();// instanciamos el controaldor de enemigos y le consultamos si esa funcion booleana es verdadera
+    }
+    public void reintentar()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

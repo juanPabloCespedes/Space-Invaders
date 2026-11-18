@@ -6,7 +6,7 @@ public class ControladorEnemigos : MonoBehaviour
     public float velocidad = 3f;
     public float velocidadInicial =3f;
     public float distanciaAlBajar = 0.5f;
-    public float limiteLateral = 7f;
+    private float limiteLateral = 7f;
     public int direccion = 1;  // Dirección actual: 1 significa derecha, -1 significa izquierda
     public int enemigosVivos;//enemigos vivos
     //Variables para el disparo enemigo
@@ -17,6 +17,7 @@ public class ControladorEnemigos : MonoBehaviour
     private bool powerUpActivo =false;//gestionar el power up 
     //Límite inferior donde si los enemigos llegan, pierdes
     public float limitePerderY = -3f; 
+    public float velocidadDeDisparo;
     void Awake()
     {
         // Configura el patrón Singleton para acceso global
@@ -84,7 +85,9 @@ public class ControladorEnemigos : MonoBehaviour
         if(enemigo.getEstaVivo())
         {
             //Disparo
-            Instantiate(prefabDisparoEnemigo, enemigoElegido.position, Quaternion.identity);
+            GameObject disparo = Instantiate(prefabDisparoEnemigo, enemigoElegido.position, Quaternion.identity);
+            MovimientoDisparoEnemigo md = disparo.gameObject.GetComponent<MovimientoDisparoEnemigo>();
+            md.setVelocidad(velocidadDeDisparo);
             // Sonido de disparo enemigo
             AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoEnemigo,1f,1f);    
         }   

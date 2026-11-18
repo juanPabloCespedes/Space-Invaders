@@ -12,23 +12,15 @@ public class EscudoDestruible : MonoBehaviour
     { 
         saludActual = saludMaxima;
         renderizadorSprite = GetComponent<SpriteRenderer>(); 
-    } 
-    // WIP
-     private void OnCollisionEnter2D(Collision2D colision) 
-    { 
-        // Comprobamos si lo que chocó contra el escudo fue un disparo del jugador o del enemigo 
-        if (colision.gameObject.CompareTag("Enemigo")) 
-        { 
-            // 1. Destruimos el proyectil que impactó el escudo 
-            Destroy(colision.gameObject); 
- 
-            // 2. Restamos salud al escudo 
-            RecibirDanio(1); 
-        } 
-    }
+    }  
     // También detectamos si los enemigos FÍSICAMENTE pisan el escudo al bajar 
     private void OnTriggerEnter2D(Collider2D otroObjeto) 
     { 
+        if (otroObjeto.CompareTag("Enemigo"))
+        {
+            RecibirDanio(saludActual);
+            return;
+        }
         if (otroObjeto.CompareTag("DisparoEnemigo")||otroObjeto.CompareTag("Disparo") ) 
         { 
             // Si un marciano dispara a el búnker, lo rompe un poco 

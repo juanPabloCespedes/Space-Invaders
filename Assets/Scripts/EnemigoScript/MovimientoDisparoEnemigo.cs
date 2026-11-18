@@ -16,5 +16,8 @@ public class MovimientoDisparoEnemigo : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    public void setVelocidad(float valor)
+    {
+        velocidadDisparo = valor;
+    }
 }
