@@ -30,6 +30,7 @@ public class MovimientoDisparo : MonoBehaviour
             GameManager.Instancia.SumarPuntos(eg.getPuntos()); //Suma puntos, conforme el enemigo que eliminemos
             rb.gravityScale=-2f;// cambia la gravedad de la nave  
             rb.angularVelocity = Random.Range(-360f, 360f);//Rota la nave 
+            bc.enabled = false;
             Destroy(gameObject); // Destruye el disparo
             Destroy(otroObjeto.gameObject,0.8f); // Destruye al enemigo despues de un tiempo
         }

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject prefabPowerUpCadencia;
     public GameObject prefabPowerUpLentitud; 
     public GameObject prefabPowerUpRebote; 
+    public GameObject prefabTitan;
     public int cantidadDePowerUpsActivos = 0; // power ups activos
     public int cantidadMaximaDePowerUps; // maximo de power ups
     private float duracion = 5f;//cooldwon de powerup
@@ -30,6 +31,11 @@ public class GameManager : MonoBehaviour
     private float tiempoInicio;//manejo de reloj 
     private int ultimoSegundo = -1;
     private float advertenciaDeResta;//advertencia de resta de puntos
+    public int probabilidadDeSpawnTitan;
+    public float respawnDeTitan;
+    private float tiempoDeReaparicionDeTitan;
+    private int probabilidadRandom;
+
     void Awake()
     {
         // Configura el patrón Singleton para acceso global
@@ -47,10 +53,12 @@ public class GameManager : MonoBehaviour
         if (textoGameWin != null) textoGameWin.gameObject.SetActive(false);
         if (textoResta != null) textoResta.gameObject.SetActive(false);
         ActualizarInterfaz();
+        tiempoDeReaparicionDeTitan = respawnDeTitan;
     }
 
     void Update()
     {
+        gestionarYGenerarTitan();
         gestionarYGenerarPowerUps();//funcion corazon que maneja los spawns de los powerUps
         // Si perdimos y el jugador presiona R, reiniciamos la partida
         if (juegoTerminado && Input.GetKeyDown(KeyCode.R))
@@ -281,5 +289,14 @@ public class GameManager : MonoBehaviour
     public void siguienteNivel(string nivel)
     {
         SceneManager.LoadScene(nivel);
+    }
+    public void gestionarYGenerarTitan()
+    {
+        probabilidadRandom = Random.Range(1,101);
+        if(Time.time >= tiempoDeReaparicionDeTitan && probabilidadRandom <= probabilidadDeSpawnTitan)
+        {
+            Instantiate(prefabTitan, new Vector2(14.22f, 5.397f), Quaternion.identity);
+            tiempoDeReaparicionDeTitan = Time.time + respawnDeTitan;
+        }
     }
 }

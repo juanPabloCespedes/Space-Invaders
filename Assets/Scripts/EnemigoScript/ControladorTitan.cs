@@ -34,8 +34,6 @@ public class ControladorTitan : MonoBehaviour
     }
     private void DispararEnemigoAleatorio()
     {   
-
-         
         // Genera el disparo en la posición de ese enemigo si es que esta vivo
         if(enemigo.getEstaVivo())
         {
@@ -44,7 +42,7 @@ public class ControladorTitan : MonoBehaviour
             MovimientoDisparoEnemigo md = disparo.gameObject.GetComponent<MovimientoDisparoEnemigo>();
             md.setVelocidadDeDisparo(velocidadDeDisparo);
             // Sonido de disparo enemigo
-            AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoTitan,1f,1f);    
+            AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoTitan,0.8f,1f);    
         }   
     }
 }
