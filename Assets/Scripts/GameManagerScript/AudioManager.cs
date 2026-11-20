@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     // Coloca aquí tus clips de sonido desde el inspector de Unity
     public AudioClip sonidoDisparoJugador;
     public AudioClip sonidoDisparoEnemigo;
+    public AudioClip sonidoDisparoTitan;
     public AudioClip sonidoExplosion;
     public AudioClip sonidoHit;
     public AudioClip sonidoHitDesviado;

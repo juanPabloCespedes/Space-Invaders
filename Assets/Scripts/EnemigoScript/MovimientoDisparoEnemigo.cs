@@ -3,7 +3,7 @@ using UnityEngine;
 public class MovimientoDisparoEnemigo : MonoBehaviour
 {
     // Velocidad a la que sube el láser
-    public float velocidadDisparo = 15f; 
+    private float velocidadDisparo; 
 
     void Update()
     {
@@ -16,7 +16,7 @@ public class MovimientoDisparoEnemigo : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void setVelocidad(float valor)
+    public void setVelocidadDeDisparo(float valor)
     {
         velocidadDisparo = valor;
     }

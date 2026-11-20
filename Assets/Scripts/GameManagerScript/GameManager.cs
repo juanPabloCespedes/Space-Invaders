@@ -278,4 +278,8 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void siguienteNivel(string nivel)
+    {
+        SceneManager.LoadScene(nivel);
+    }
 }
