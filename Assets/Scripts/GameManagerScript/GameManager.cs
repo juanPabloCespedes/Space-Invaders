@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text textoGameWin; // Asegúrate de ocultarlo al empezar en Unity
     public TMP_Text textoTiempo; 
     public TMP_Text textoResta; 
+    public TMP_Text textoPausa; 
     private bool juegoTerminado = false;
     public GameObject prefabPowerUpCadencia;
     public GameObject prefabPowerUpLentitud; 
@@ -52,6 +53,8 @@ public class GameManager : MonoBehaviour
         if (textoGameOver != null) textoGameOver.gameObject.SetActive(false);
         if (textoGameWin != null) textoGameWin.gameObject.SetActive(false);
         if (textoResta != null) textoResta.gameObject.SetActive(false);
+        if (textoResta != null) textoPausa.gameObject.SetActive(false);
+        
         ActualizarInterfaz();
         tiempoDeReaparicionDeTitan = respawnDeTitan;
     }
@@ -61,9 +64,10 @@ public class GameManager : MonoBehaviour
         gestionarYGenerarTitan();
         gestionarYGenerarPowerUps();//funcion corazon que maneja los spawns de los powerUps
         // Si perdimos y el jugador presiona R, reiniciamos la partida
-        if (juegoTerminado && Input.GetKeyDown(KeyCode.R))
+        if (!juegoTerminado && Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 0f;  
+            textoPausa.gameObject.SetActive(true);
         }
         eliminarPowerUpPasadoDeTiempo();//gestiona los power ups que pasaron de tiempo
         terminarJuegoSiMurieronLosEnemigos();
@@ -298,5 +302,10 @@ public class GameManager : MonoBehaviour
             Instantiate(prefabTitan, new Vector2(14.22f, 5.397f), Quaternion.identity);
             tiempoDeReaparicionDeTitan = Time.time + respawnDeTitan;
         }
+    }
+    public void continuarNivel()
+    {
+        textoPausa.gameObject.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

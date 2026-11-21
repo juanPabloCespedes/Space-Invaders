@@ -32,7 +32,7 @@ public class MovimientoDisparo : MonoBehaviour
             rb.angularVelocity = Random.Range(-360f, 360f);//Rota la nave 
             bc.enabled = false;
             Destroy(gameObject); // Destruye el disparo
-            Destroy(otroObjeto.gameObject,0.8f); // Destruye al enemigo despues de un tiempo
+            Destroy(otroObjeto.gameObject,1f); // Destruye al enemigo despues de un tiempo
         }
     }
 }

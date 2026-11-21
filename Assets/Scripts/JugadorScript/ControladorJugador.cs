@@ -20,7 +20,7 @@ public class ControladorJugador : MonoBehaviour
         transform.Translate(Vector3.right * movimientoHorizontal * velocidad * Time.deltaTime);
 
         // 3. Restringir la posición para que no cruce los límites de la pantalla
-        float posicionXLimitada = Mathf.Clamp(transform.position.x, -limiteX-1, limiteX);
+        float posicionXLimitada = Mathf.Clamp(transform.position.x, -limiteX-1, limiteX+1);
         transform.position = new Vector3(posicionXLimitada, transform.position.y, transform.position.z);
 
         // 4. Detectar si el jugador presiona la Barra Espaciadora para disparar
@@ -59,13 +59,13 @@ public class ControladorJugador : MonoBehaviour
                 if (AudioManager.Instancia != null) 
                 { 
                     
-                AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoHit,1f,1f); 
+                    AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoHit,1f,1f); 
                 } 
         
                 // 2. Destruir el proyectil que nos golpeó 
                 Destroy(otroObjeto.gameObject);  
 
-                // 3. Avisar al GameManager que nos reste una vida 
+                // 3. Avisar al GameManager que nos reste una vida y puntos
                 GameManager.Instancia.RestarVida(); 
                 GameManager.Instancia.restarPuntos(40); 
         

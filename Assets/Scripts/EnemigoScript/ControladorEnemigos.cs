@@ -38,7 +38,7 @@ public class ControladorEnemigos : MonoBehaviour
         foreach (Transform enemigo in transform)
         {
             // Si algún enemigo toca el límite derecho yendo a la derecha, o el izquierdo yendo a la izquierda
-            if ((direccion == 1 && enemigo.position.x >= limiteLateral) || (direccion == -1 && enemigo.position.x <= -limiteLateral-1))
+            if ((direccion == 1 && enemigo.position.x >= limiteLateral) || (direccion == -1 && enemigo.position.x <= -limiteLateral))
             {
                 CambiarDireccionYInvertir();
                 break; // Salimos del bucle para evitar que baje múltiples veces en el mismo frame

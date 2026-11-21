@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/EscenasDelMenu/ComoJugar.unity
     guid: c0cccc0d2ce5a344aa5dbf2d459f0c91
   - enabled: 1
+    path: Assets/Scenes/EscenaNiveles/Nivel2.unity
+    guid: 7d38e191fa5683b4d8a109b6abc69796
+  - enabled: 1
     path: Assets/Scenes/EscenasDelMenu/Creditos.unity
     guid: a478bdc3658664b4cbafc79c7497bb2c
   m_configObjects: {}
