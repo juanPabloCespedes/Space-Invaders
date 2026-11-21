@@ -88,6 +88,7 @@ public class ControladorEnemigos : MonoBehaviour
             GameObject disparo = Instantiate(prefabDisparoEnemigo, enemigoElegido.position, Quaternion.identity);
             MovimientoDisparoEnemigo md = disparo.gameObject.GetComponent<MovimientoDisparoEnemigo>();
             md.setVelocidadDeDisparo(velocidadDeDisparo);
+            md.setRestaDePuntos(enemigo.getPuntos());//resta de puntos depende de los puntos que otorga el enemigo
             // Sonido de disparo enemigo
             AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoDisparoEnemigo,1f,1f);    
         }   

@@ -64,10 +64,10 @@ public class ControladorJugador : MonoBehaviour
         
                 // 2. Destruir el proyectil que nos golpeó 
                 Destroy(otroObjeto.gameObject);  
-
+                MovimientoDisparoEnemigo md = otroObjeto.gameObject.GetComponent<MovimientoDisparoEnemigo>();
                 // 3. Avisar al GameManager que nos reste una vida y puntos
                 GameManager.Instancia.RestarVida(); 
-                GameManager.Instancia.restarPuntos(40); 
+                GameManager.Instancia.restarPuntos(md.getRestaDePuntos()); 
         
                 // 4. Si el jugador se quedó sin vidas, destruimos la nave física 
                 if (GameManager.Instancia.vidas <= 0) 
@@ -85,7 +85,7 @@ public class ControladorJugador : MonoBehaviour
             {
                 Disparar();
                 AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoHitDesviado,1f,1f);
-                Destroy(otroObjeto.gameObject);   
+                Destroy(otroObjeto.gameObject);
             }
         }
     // funcion para cambiar la cadencia

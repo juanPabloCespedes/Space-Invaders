@@ -3330,7 +3330,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.87, y: 5.68}
+  m_AnchoredPosition: {x: -9.96, y: 5.68}
   m_SizeDelta: {x: 2.2778, y: 0.7097}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &401396636
@@ -3758,9 +3758,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 523387038}
-        m_TargetAssemblyTypeName: ControladorMenu, Assembly-CSharp
-        m_MethodName: CargarEscenaJuego
+      - m_Target: {fileID: 980824019}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: siguienteNivel
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4378,50 +4378,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.23, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &523387037
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 523387039}
-  - component: {fileID: 523387038}
-  m_Layer: 0
-  m_Name: VolverAlmenu
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &523387038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523387037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3515df4d423e4d742bec03beb3ad76ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &523387039
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523387037}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1283927, y: 2.7292, z: 0.033719998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5689,7 +5645,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8.3619995, y: 5.68}
+  m_AnchoredPosition: {x: -9.224, y: 5.68}
   m_SizeDelta: {x: 2.2778, y: 0.7097}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &638167898
@@ -5712,7 +5668,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: -40
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5746,7 +5702,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 17
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -5872,9 +5828,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 523387038}
-        m_TargetAssemblyTypeName: ControladorMenu, Assembly-CSharp
-        m_MethodName: CargarEscenaJuego
+      - m_Target: {fileID: 980824019}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: siguienteNivel
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6667,7 +6623,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ComoJugar
+          m_StringArgument: Nivel3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &751609900
@@ -7839,8 +7795,14 @@ MonoBehaviour:
   prefabTitan: {fileID: 7956810177225319198, guid: 06c0d2a20dea2b74db85d018b9d5a058, type: 3}
   cantidadDePowerUpsActivos: 0
   cantidadMaximaDePowerUps: 3
+  duracion: 6
+  duracionCooldown: 5
+  musicaNivel: {fileID: 8300000, guid: d7fb71c79d2695c4a91be5cca82fd8b1, type: 3}
   probabilidadDeSpawnTitan: 50
-  respawnDeTitan: 30
+  respawnDeTitan: 25
+  velocidadDelTitan: 3
+  velocidadDeDisparoTitan: 16
+  tiempoEntreDisparosTitan: 1.5
 --- !u!1 &1003667008
 GameObject:
   m_ObjectHideFlags: 0
@@ -10175,6 +10137,7 @@ GameObject:
   - component: {fileID: 1439959560}
   - component: {fileID: 1439959559}
   - component: {fileID: 1439959561}
+  - component: {fileID: 1439959562}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -10314,6 +10277,106 @@ MonoBehaviour:
   powerUpcadencia: {fileID: 8300000, guid: a29e27412d678be46b107efb6a0de83b, type: 3}
   powerUpRebote: {fileID: 8300000, guid: d0e5e945faef5d1458a0ef92631d41ac, type: 3}
   bunkerRoto: {fileID: 8300000, guid: 6828f13642edb3145afba73d2872a105, type: 3}
+  fuenteMusica: {fileID: 1439959562}
+  sonidoOpcion: {fileID: 8300000, guid: b4843459675af264abf35af13a66b8d4, type: 3}
+  sonidoNivelGanado: {fileID: 8300000, guid: 2fce6a3d1137d684095985f28cbd3943, type: 3}
+  sonidoNivelPerdido: {fileID: 8300000, guid: bd784c611828d384080a2bee3ca7d05f, type: 3}
+--- !u!82 &1439959562
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439959558}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.7
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1446390037
 GameObject:
   m_ObjectHideFlags: 0
@@ -10570,9 +10633,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 523387038}
-        m_TargetAssemblyTypeName: ControladorMenu, Assembly-CSharp
-        m_MethodName: CargarEscenaJuego
+      - m_Target: {fileID: 980824019}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: siguienteNivel
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13475,7 +13538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 1.1
   velocidadInicial: 1.1
-  distanciaAlBajar: 0.8
+  distanciaAlBajar: 1
   direccion: 1
   enemigosVivos: 55
   prefabDisparoEnemigo: {fileID: 4621141704417742911, guid: 24c354d7f29b32f498feb631dc01af80, type: 3}
@@ -14562,5 +14625,4 @@ SceneRoots:
   - {fileID: 1960333380}
   - {fileID: 1360364395}
   - {fileID: 1439959560}
-  - {fileID: 523387039}
   - {fileID: 1388131371}

@@ -16,14 +16,26 @@ public class AudioManager : MonoBehaviour
     public AudioClip powerUpcadencia;
     public AudioClip powerUpRebote;
     public AudioClip bunkerRoto;
-
+    public AudioSource fuenteMusica;
+    public AudioClip sonidoOpcion;
+    public AudioClip sonidoNivelGanado;
+    public AudioClip sonidoNivelPerdido;
     void Awake()
     {
-        if (Instancia == null) Instancia = this;
+        if (Instancia == null)
+        {
+            Instancia = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
         fuenteAudio = GetComponent<AudioSource>();
     }
 
-    // Función para reproducir cualquier sonido una sola vez
+    // Funcion para reproducir cualquier sonido una sola vez
     public void ReproducirSonido(AudioClip clip,float volumen,float pitch)
     {
         if (clip != null)
@@ -31,5 +43,30 @@ public class AudioManager : MonoBehaviour
             fuenteAudio.pitch = pitch;
             fuenteAudio.PlayOneShot(clip,volumen);
         }
+    }
+    // Reproducir musica en bucle
+    public void ReproducirMusica(AudioClip musica)
+    {
+        if (musica == null) return;
+
+        // Si es la misma cancion, no la reiniciamos
+        if (fuenteMusica.clip == musica)
+            return;
+
+        fuenteMusica.clip = musica;
+        fuenteMusica.loop = true;
+        fuenteMusica.Play();
+    }
+
+    // Pausar musica
+    public void PausarMusica()
+    {
+        fuenteMusica.Pause();
+    }
+
+    // Reanudar musica
+    public void ReanudarMusica()
+    {
+        fuenteMusica.UnPause();
     }
 }

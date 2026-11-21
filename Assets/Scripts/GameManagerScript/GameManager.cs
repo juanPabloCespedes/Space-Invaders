@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour
     public GameObject prefabTitan;
     public int cantidadDePowerUpsActivos = 0; // power ups activos
     public int cantidadMaximaDePowerUps; // maximo de power ups
-    private float duracion = 5f;//cooldwon de powerup
+    public float duracion = 5f;//float para manejar la duracion inicial del primer spawn y luego sirve para manejar los tiempos del powerUp
+    public float duracionCooldown;//cooldwon de powerup valor fijo para reinicar el spawn de powerUps
     List<int> posicionesOcupadas = new List<int>();//lista para manejar spawn de power ups
     List<float> listaDeTiempos = new List<float>();//lista para manejar los tiempos de los power ups
     List<int> ordenDePosicionesOcupadas = new List<int>();//lista para manejar el orden de uso de posiciones
@@ -30,13 +31,17 @@ public class GameManager : MonoBehaviour
     private int posicionRandom;// numero random para manejar diferentes posiciones de power up 
     private int posicionOcupada;//numero para obtener la posicion ocupada
     private float tiempoInicio;//manejo de reloj 
-    private int ultimoSegundo = -1;
+    private int ultimoSegundo = -1;//manejo de reloj
     private float advertenciaDeResta;//advertencia de resta de puntos
-    public int probabilidadDeSpawnTitan;
-    public float respawnDeTitan;
-    private float tiempoDeReaparicionDeTitan;
-    private int probabilidadRandom;
-
+    public AudioClip musicaNivel;//musica
+    //variables modifcables del titan 
+    public int probabilidadDeSpawnTitan;//probabilidad de spawn
+    public float respawnDeTitan;//respawn del titan
+    private float tiempoDeReaparicionDeTitan;//tiempo de respawn
+    private int probabilidadRandom;//manejo random de probabilidades de respawn dado 
+    public float velocidadDelTitan;//velocidad
+    public float velocidadDeDisparoTitan;//velocidad de tiro
+    public float tiempoEntreDisparosTitan;//tiempo entre disparo
     void Awake()
     {
         // Configura el patrón Singleton para acceso global
@@ -54,27 +59,28 @@ public class GameManager : MonoBehaviour
         if (textoGameWin != null) textoGameWin.gameObject.SetActive(false);
         if (textoResta != null) textoResta.gameObject.SetActive(false);
         if (textoResta != null) textoPausa.gameObject.SetActive(false);
-        
+        AudioManager.Instancia.ReproducirMusica(musicaNivel);  
         ActualizarInterfaz();
-        tiempoDeReaparicionDeTitan = respawnDeTitan;
+        tiempoDeReaparicionDeTitan = Time.time + respawnDeTitan;
     }
 
     void Update()
     {
-        gestionarYGenerarTitan();
+        gestionarYGenerarTitan();//funcion para manejar el spawn del titan
         gestionarYGenerarPowerUps();//funcion corazon que maneja los spawns de los powerUps
         // Si perdimos y el jugador presiona R, reiniciamos la partida
         if (!juegoTerminado && Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0f;  
             textoPausa.gameObject.SetActive(true);
+            AudioManager.Instancia.PausarMusica();  
         }
         eliminarPowerUpPasadoDeTiempo();//gestiona los power ups que pasaron de tiempo
         terminarJuegoSiMurieronLosEnemigos();
         ActualizarTiempo();
         eliminarAdvertencia();
     }
-    //funcion que oculta la advertencia de resta de puntos
+    //funcion que oculta la advertencia de resta de puntos o suma 
     private void eliminarAdvertencia()
     {
         if(Time.time >= advertenciaDeResta )
@@ -98,7 +104,8 @@ public class GameManager : MonoBehaviour
         if(todosLosEnemigosMuertos())
         {
             SumarPuntos(bonusPorTiempo());
-            ActivarGameOver("ganaste"); 
+            ActivarGameOver("ganaste");
+            AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoNivelGanado,0.1f,1f); 
         }
     }
     //funcion que accede a la lista y elimina el powerUp activo
@@ -137,6 +144,8 @@ public class GameManager : MonoBehaviour
     {
         if (juegoTerminado)return;  
         puntuacion += puntosAMentat;
+        advertenciaDeResta = Time.time + 2f;
+        mostrarPuntos("+",puntosAMentat);
         ActualizarInterfaz();
     }
     //funcion que sirve para restar puntos y mostrar la advertencia  
@@ -149,7 +158,7 @@ public class GameManager : MonoBehaviour
             puntuacion = 0;
         }
         advertenciaDeResta = Time.time + 2f;
-        textoResta.gameObject.SetActive(true);
+        mostrarPuntos("-",puntosAMentat);
         ActualizarInterfaz();
     }
      // Función para restar vidas cuando el jugador es golpeado 
@@ -162,7 +171,8 @@ public class GameManager : MonoBehaviour
  
         if (vidas <= 0) 
         { 
-            ActivarGameOver("perdiste"); 
+            ActivarGameOver("perdiste");
+            AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoNivelPerdido,0.6f,1f);  
         } 
     }
 
@@ -179,10 +189,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;  //pausar el juego
         if (condicion == "perdiste") 
         { 
+            AudioManager.Instancia.PausarMusica();  
             textoGameOver.gameObject.SetActive(true);  
         }
         else
         {
+            AudioManager.Instancia.PausarMusica();  
             textoGameWin.gameObject.SetActive(true);
         } 
     } 
@@ -198,15 +210,15 @@ public class GameManager : MonoBehaviour
             {
                 case 1:
                     Instantiate(prefabPowerUpCadencia, lc, Quaternion.identity).GetComponent<PowerUpCadencia>().asignarPosicion(posicionRandom);
-                    setDuracion(1f);// cooldown de power ups en general
+                    //setDuracion(1f);// cooldown de power ups en general
                     break;
                 case 2:
                     Instantiate(prefabPowerUpLentitud, lc, Quaternion.identity).GetComponent<PowerUpLentitud>().asignarPosicion(posicionRandom);
-                    setDuracion(1f);
+                    //setDuracion(1f);
                     break;
                 default:
                     Instantiate(prefabPowerUpRebote, lc, Quaternion.identity).GetComponent<PowerUpRebote>().asignarPosicion(posicionRandom);
-                    setDuracion(1f);//10
+                    //setDuracion(1f);//10
                     break;
             }
             agregarPosicion(posicionRandom);//se agrega la posicion en la que se tomo este power up 
@@ -240,7 +252,7 @@ public class GameManager : MonoBehaviour
     {
         if(cantidadDePowerUpsActivos < cantidadMaximaDePowerUps && Time.time>= duracion)
         {
-            setDuracion(1f);//15
+            setDuracion(duracionCooldown);//tiempo de reinicio para que vuelva a salir otro powerUp
             generarPowerUp();//genera el power up 
         }
     }
@@ -266,15 +278,15 @@ public class GameManager : MonoBehaviour
     {
         if(Time.time <= 60f)//60
         {
-            return 500;
+            return 1000;
         }
         else if (Time.time <= 90f )//90
         {
-            return 250;
+            return 500;
         }
         else if (Time.time <= 120f)//120
         {
-            return 125;
+            return 250;
         }
         else
         {
@@ -286,26 +298,42 @@ public class GameManager : MonoBehaviour
     {        
         return ControladorEnemigos.Instancia.cantidadDeEnemigos();// instanciamos el controaldor de enemigos y le consultamos si esa funcion booleana es verdadera
     }
+    //funcion para reintentar el nivel
     public void reintentar()
     {
+        AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoOpcion,1f,1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        AudioManager.Instancia.ReanudarMusica();
     }
+    // funcion para avanzar al siguiente nivel
     public void siguienteNivel(string nivel)
     {
+        AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoOpcion,1f,1f);
         SceneManager.LoadScene(nivel);
     }
+    // funcion que gestiona la generacion del titan
     public void gestionarYGenerarTitan()
     {
-        probabilidadRandom = Random.Range(1,101);
+        probabilidadRandom = Random.Range(1,101);//se lanza el dado y si cumple y es menor que la probabilidad se crea un prefab de titan
         if(Time.time >= tiempoDeReaparicionDeTitan && probabilidadRandom <= probabilidadDeSpawnTitan)
         {
-            Instantiate(prefabTitan, new Vector2(14.22f, 5.397f), Quaternion.identity);
-            tiempoDeReaparicionDeTitan = Time.time + respawnDeTitan;
+            Instantiate(prefabTitan, new Vector2(15.9f, 7.37f), Quaternion.identity).GetComponent<ControladorTitan>().asignarValoresDeVelocidad(velocidadDelTitan,velocidadDeDisparoTitan,tiempoEntreDisparosTitan);
+            tiempoDeReaparicionDeTitan = Time.time + respawnDeTitan;//asignamos cooldown
         }
     }
+    //funcion para avanzar de nivel
     public void continuarNivel()
     {
+        AudioManager.Instancia.ReproducirSonido(AudioManager.Instancia.sonidoOpcion,1f,1f);
         textoPausa.gameObject.SetActive(false);
         Time.timeScale = 1f;
+        AudioManager.Instancia.ReanudarMusica();  
+    }
+    //funcion para mostrar los puntos restados o no 
+    public void mostrarPuntos(string enumerador, int puntosRestados)
+    {
+        textoResta.transform.position = (Vector2)textoPuntuacion.transform.position + new Vector2(0.6f, 0f);
+        textoResta.text = enumerador + puntosRestados;
+        textoResta.gameObject.SetActive(true);
     }
 }

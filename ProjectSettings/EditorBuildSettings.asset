@@ -30,6 +30,12 @@ EditorBuildSettings:
     path: Assets/Scenes/EscenaNiveles/Nivel2.unity
     guid: 7d38e191fa5683b4d8a109b6abc69796
   - enabled: 1
+    path: Assets/Scenes/EscenaNiveles/Nivel3.unity
+    guid: 39d5b57d9c8acfe4190bae10d40d2d75
+  - enabled: 1
+    path: Assets/Scenes/EscenasDeComoJugar/Puntaje.unity
+    guid: b7023d3e859b68342a202132dea50bd8
+  - enabled: 1
     path: Assets/Scenes/EscenasDelMenu/Creditos.unity
     guid: a478bdc3658664b4cbafc79c7497bb2c
   m_configObjects: {}
